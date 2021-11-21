@@ -12,10 +12,13 @@ print(cartao.get_limite())
 print(cartao.estornar(4000))
 print(cartao.get_limite())
 
-pedido = Pedido("Thiago Silva", "Hamburguer", 14000)
+pedido = Pedido("Thiago Silva", "Hamburguer", 1400)
+pedido1 = Pedido("Nicole Roale", "Pizza", 1000)
 
 print(pedido.get_cliente())
 print(pedido.get_itens())
 print(pedido.get_numero())
 
 print('Pedido: ' + str(pedido.faturar_pedido(cartao)))
+print('Estornar Pedido :' + str(pedido.estornar(pedido)))
+print('Estornar Pedido :' + str(pedido.estornar(pedido1)))
