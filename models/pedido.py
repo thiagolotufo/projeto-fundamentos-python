@@ -20,13 +20,19 @@ class Pedido:
     def get_status_pagamento(self):
         return self._status_pagamento
 
-    def set_status_pagamento(self):
-        self._status_pagamento = True
+    def set_status_pagamento(self, status):
+        self._status_pagamento = status
         return True
 
     def faturar_pedido(self, cartao_credito):
         if cartao_credito.debitar(self._valor_total):
-            self.set_status_pagamento()
+            self.set_status_pagamento(status = True)
             return True
         else:
             return False
+    
+    def estornar(self, pedido):
+        if self.get_numero() == pedido.get_numero():
+            self.set_status_pagamento(status = False)
+            return True
+        return False 
