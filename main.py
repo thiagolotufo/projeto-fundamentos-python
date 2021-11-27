@@ -1,7 +1,7 @@
 from models.cartao_credito import Cartao_Credito
 from models.pedido import Pedido
-from Livro import Livro
-from Game import Game
+from models.livro import Livro
+from models.game import Game
 
 cartao = Cartao_Credito(123456, 1025, 123, 5000)
 
