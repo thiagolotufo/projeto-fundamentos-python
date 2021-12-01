@@ -1,11 +1,9 @@
-from Produto import Produto
+from models.produto import Produto
 
 class Game(Produto):
-    def __init__(self, titulo, empresa, preço, estoque = 100):
-        Produto.__init__(self, titulo, preço, estoque)
-        self._titulo = titulo
+    def __init__(self, empresa, titulo, preco, estoque = 100):
+        Produto.__init__(self, titulo, preco, estoque)
         self._empresa = empresa
-        self._preço = preço
         
     def getTitulo(self):
         return self._titulo
@@ -13,11 +11,8 @@ class Game(Produto):
     def getEmpresa(self):
         return self._empresa
 
-    def getPreço(self):
-        return float(self._preço)
+    def getPreco(self):
+        return float(self._preco)
 
     def getEstoque(self):
         return self._estoque
-
-    def __str__(self):
-        return "Título: " + self.getTitulo() + ","+" Empresa: " + self.getEmpresa()+ "," + " Preço: " + str(self.getPreço())

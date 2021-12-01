@@ -1,3 +1,5 @@
+from models.cartao_credito import CartaoCredito
+
 class Cliente:
   def __init__(self, nome, cpf, email):
     self._nome = nome
@@ -17,10 +19,6 @@ class Cliente:
   def getCartao(self):
     return self._cartoescredito
 
-  def adicionarCartao(self, numero, data_validade, cvv, limite)
-    cartao = Cartao_Credito (numero, data_validade, cvv, limite, self._nome)
+  def adicionarCartao(self, numero, data_validade, cvv, limite):
+    cartao = CartaoCredito(numero, data_validade, cvv, limite, self._nome)
     self._cartoescredito.append(cartao)
-    
-      
-  
- 
