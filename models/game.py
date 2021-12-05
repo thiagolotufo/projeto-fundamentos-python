@@ -1,7 +1,7 @@
 from models.produto import Produto
 
 class Game(Produto):
-    def __init__(self, empresa, titulo, preco, estoque = 100):
+    def __init__(self, empresa, titulo, preco, estoque):
         Produto.__init__(self, titulo, preco, estoque)
         self._empresa = empresa
         

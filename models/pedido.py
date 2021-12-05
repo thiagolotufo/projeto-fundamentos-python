@@ -15,9 +15,11 @@ class Pedido:
         return self._cliente
 
     def getItens(self):
+        for item in self._itens:
+            print(item.getTitulo())
         return self._itens
 
-    def getIValorTotal(self):
+    def getValorTotal(self):
         return self._valor_total
 
     def getStatusPagamento(self):

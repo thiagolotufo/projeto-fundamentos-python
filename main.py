@@ -1,96 +1,131 @@
-from models.cartao_credito import CartaoCredito
-from models.pedido import Pedido
+from models.carrinho import CarrinhoDeCompras
 from models.livro import Livro
 from models.game import Game
 from models.cliente import Cliente
+from models.pedido import Pedido
 
-# Criação de 3 clientes diferentes onde um deles tem 2 cartões de crédito, enquanto os demais apenas um.
-# Os limites dos 4 cartões devem ser diferentes
+print('1. Criação de 3 clientes diferentes onde um deles tem 2 cartões '
+      'de crédito, enquanto os demais apenas um. Os limites dos 4 cartões '
+      'devem ser diferentes')
 
-cartao1 = CartaoCredito(1111111111, '10/25', 123, 5000)
-cartao2 = CartaoCredito(2222222222, '06/22', 321, 25000)
-cliente1 = Cliente('Ana', '10076695786', 'ana@espois.com')
+cliente1 = Cliente('Ana', '000.000.000-00', 'ana@espois.com')
+cliente1.adicionarCartao('1111 1111 1111 1111', '10/25', 111, 200.00)
+cliente1.adicionarCartao('2222 2222 2222 2222', '06/22', 222, 50.00)
 
-print(cliente1.getCartao())
-print(cartao1.getNumero())
+cliente2 = Cliente('Carolina', '111.111.111-11', 'carolina@espois.com')
+cliente2.adicionarCartao('3333 3333 3333 3333', '10/26', 333, 1500.00)
 
+cliente3 = Cliente('André', '222.222.222-22', 'andre@espois.com')
+cliente3.adicionarCartao('4444 4444 4444 4444', '10/26', 444, 2500.00)
 
-# Criação de 4 produtos: 2 livros e 2 games
+print(cliente1.getNome())
+print(cliente1.getCartao()[0].getNumero())
+print(cliente1.getCartao()[1].getNumero())
+print(cliente2.getNome())
+print(cliente2.getCartao()[0].getNumero())
+print(cliente3.getNome())
+print(cliente3.getCartao()[0].getNumero())
 
-game1 = Game('EA Sports', 'Fifa 2021', 250)
-game2 = Game('EA', 'The Sims', 99)
+print('')
+########################
 
-livro1 = Livro('4534631', 'Allan Ribeiro', 'Python 3.0', 50)
-livro2 = Livro('9184792', 'Machado de Assis', 'Dom Casmurro', 15)
+print('2. Criação de 4 produtos: 2 livros e 2 games')
+game1 = Game('EA Sports', 'Fifa 2021', 249.99, 5)
+game2 = Game('EA', 'The Sims', 99.99, 0)
+
+livro1 = Livro('4534631', 'Allan Ribeiro', 'Python 3.0', 49.99, 10)
+livro2 = Livro('9184792', 'Machado de Assis', 'Dom Casmurro', 14.99, 50)
 
 print(game1.getTitulo())
+print(game1.getPreco())
+print(game2.getTitulo())
 print(game2.getPreco())
 
 print(livro1.getTitulo())
+print(livro1.getAutor())
+print(livro2.getTitulo())
 print(livro2.getAutor())
 
+print('')
+########################
 
-# O cliente com dois cartões faz 2 pedidos: um com um livro e um game, e outro com 2 livros
+print('3. O cliente com dois cartões faz 2 pedidos: um com um livro e um game, '
+      'e outro com 2 livros')
 
+carrinho1 = CarrinhoDeCompras()
+carrinho1.inserirProduto(game1)
+carrinho1.inserirProduto(livro2)
 
+print(carrinho1.getProduto()[0].getTitulo())
+print(carrinho1.getProduto()[0].getPreco())
+print(carrinho1.getProduto()[1].getTitulo())
+print(carrinho1.getProduto()[1].getPreco())
 
-# Os outros clientes devem fazer 1 pedido cada com 1 livro ou 1 game
+pedido1 = Pedido(cliente1, carrinho1.getProduto(), carrinho1.somaTotal())
+print('Cliente: ' + str(pedido1.getCliente().getNome()))
+print('Valor total: ' + str(pedido1.getValorTotal()))
 
+carrinho2 = CarrinhoDeCompras()
+carrinho2.inserirProduto(livro1)
+carrinho2.inserirProduto(livro2)
 
+print(carrinho2.getProduto()[0].getTitulo())
+print(carrinho2.getProduto()[0].getPreco())
+print(carrinho2.getProduto()[1].getTitulo())
+print(carrinho2.getProduto()[1].getPreco())
 
+pedido2 = Pedido(cliente1, carrinho2.getProduto(), carrinho2.somaTotal())
+print('Cliente: ' + str(pedido2.getCliente().getNome()))
+print('Valor total: ' + str(pedido2.getValorTotal()))
 
-# Mostre um cenário onde o pedido de um dos clientes não é efetivado por falta de limite no cartão
+print('')
+########################
 
+print('4. Os outros clientes devem fazer 1 pedido cada com 1 livro ou 1 game')
 
+carrinho3 = CarrinhoDeCompras()
+carrinho3.inserirProduto(game1)
+print(carrinho3.getProduto()[0].getTitulo())
+print(carrinho3.getProduto()[0].getPreco())
+pedido3 = Pedido(cliente2, carrinho3.getProduto(), carrinho3.somaTotal())
+print('Cliente: ' + str(pedido3.getCliente().getNome()))
+print('Valor total: ' + str(pedido3.getValorTotal()))
 
+carrinho4 = CarrinhoDeCompras()
+carrinho4.inserirProduto(game2)
+print(carrinho4.getProduto()[0].getTitulo())
+print(carrinho4.getProduto()[0].getPreco())
+pedido4 = Pedido(cliente3, carrinho4.getProduto(), carrinho4.somaTotal())
+print('Cliente: ' + str(pedido4.getCliente().getNome()))
+print('Valor total: ' + str(pedido4.getValorTotal()))
 
-# Mostre um cenário onde o pedido de um dos clientes não é efetivado por falta do produto no estoque
+print('')
+########################
 
+print('5. Mostre um cenário onde o pedido de um dos clientes não é efetivado por falta de limite no cartão')
 
+print('Cliente: ' + str(pedido2.getCliente().getNome()))
+print('Valor total: ' + str(pedido2.getValorTotal()))
+pedido2 = carrinho2.finalizarCompra(cliente1.getCartao()[1], cliente1)
+print('Limite do cartão: ' + str(cliente1.getCartao()[1].getLimite()))
 
+print('')
+########################
 
-# Mostre um cenário onde o pedido do cliente com mais cartões é efetivado corretamente
+print('6. Mostre um cenário onde o pedido de um dos clientes não é efetivado por falta do produto no estoque')
 
+print('Cliente: ' + str(pedido4.getCliente().getNome()))
+print('Valor total: ' + str(pedido4.getValorTotal()))
+pedido4 = carrinho4.finalizarCompra(cliente3.getCartao()[0], cliente3)
+print(game2.getTitulo())
+print(game2.validarEstoque())
 
+print('')
+########################
 
+print('7. Mostre um cenário onde o pedido do cliente com mais cartões é efetivado corretamente')
 
-"""
-fifa = Game('EA Sports', 'Fifa 2021', 100)
-fifa.getTitulo()
-
-ana = Cliente('Ana', '10076695786', 36)
-pedido = Pedido(ana, fifa, 5)
-print(pedido.getIValorTotal())
-print(pedido.getCliente().getNome())
-print(fifa.getEstoque())
-
-python = Livro('Python 3.0', '12345', 'Allan Ribeiro', 50)
-python.getTitulo()
-
-carol = Cliente('Carolina', '10076695786', 25)
-pedido2 = Pedido(carol, python, 1)
-print(pedido2.getIValorTotal())
-print(pedido2.getCliente().getNome())
-print(python.getEstoque())
-
-cartao = CartaoCredito(123456, '10/25', 123, 5000)
-print(cartao.getNumero())
-print(cartao.getDataValidade())
-print(cartao.getLimite())
-print(cartao.setLimite(10000))
-print(cartao.debitar(11000))
-print(cartao.getLimite())
-print(cartao.estornar(4000))
-print(cartao.getLimite())
-
-pedido = Pedido("Thiago Silva", "Hamburguer", 1400)
-pedido1 = Pedido("Nicole Roale", "Pizza", 1000)
-
-print(pedido.getCliente())
-print(pedido.getItens())
-print(pedido.getIValorTotal())
-
-print('Pedido: ' + str(pedido.faturarPedido(cartao)))
-print('Estornar Pedido :' + str(pedido.estornar(pedido)))
-print('Estornar Pedido :' + str(pedido.estornar(pedido1)))
-"""
+print('Cliente: ' + str(pedido3.getCliente().getNome()))
+print('Produto: ' + str(pedido3.getItens()))
+print('Valor total: ' + str(pedido3.getValorTotal()))
+pedido3 = carrinho3.finalizarCompra(cliente3.getCartao()[0], cliente3)

@@ -12,3 +12,9 @@ class Produto:
 
     def getEstoque(self):
         return self._estoque
+
+    def validarEstoque(self):
+        if self._estoque == 0:
+            return False
+        else:
+            return True
