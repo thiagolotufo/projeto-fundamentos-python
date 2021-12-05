@@ -1,25 +1,36 @@
+from models.pedido import Pedido
+
 class CarrinhoDeCompras:
     def __init__(self):
         self._produtos = []
 
-    def inserirProduto(self, produto):
+    def getProduto(self):
+        return self._produtos
+
+    def inserir_produto(self, produto):
         self._produtos.append(produto)
 
-    def removerProduto(self, produto):
+    def remover_produto(self, produto):
         self._produtos.remove(produto)
 
-    def limparProdutos(self):
+    def limpar_produtos(self):
         self._produtos.clear()
 
-    def listarProduto(self):
+    def listar_produto(self):
         for produto in self._produtos:
             print(produto.nome, produto.valor)
         return self._produtos
-
-    def somaTotal(self):
+    
+    def soma_total(self):
         total = 0
         for produto in self._produtos:
             total += produto.valor
         return total
 
-    # finalizarCompra(): gera o pedido e tenta faturá-lo
+    def finalizarCompra(self, cartao_credito, cliente):
+        pedido = Pedido(cliente, self.getProduto(), self.soma_total())
+        if pedido.faturarPedido(cartao_credito):
+            print("Pagamento Aprovado")
+            return True
+        else:	
+	        return False
