@@ -18,13 +18,13 @@ class CarrinhoDeCompras:
 
     def listar_produto(self):
         for produto in self._produtos:
-            print(produto.nome, produto.valor)
+            print(produto.getTitulo(), produto.getPreco())
         return self._produtos
     
     def soma_total(self):
         total = 0
         for produto in self._produtos:
-            total += produto.valor
+            total += produto.getPreco()
         return total
 
     def finalizarCompra(self, cartao_credito, cliente):
