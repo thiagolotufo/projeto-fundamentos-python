@@ -20,5 +20,5 @@ class Cliente:
     return self._cartoescredito
 
   def adicionarCartao(self, numero, data_validade, cvv, limite):
-    cartao = CartaoCredito(numero, data_validade, cvv, limite, self._nome)
+    cartao = CartaoCredito(numero, data_validade, cvv, limite)
     self._cartoescredito.append(cartao)

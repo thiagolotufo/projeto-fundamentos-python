@@ -7,30 +7,32 @@ class CarrinhoDeCompras:
     def getProduto(self):
         return self._produtos
 
-    def inserir_produto(self, produto):
+    def inserirProduto(self, produto):
         self._produtos.append(produto)
 
-    def remover_produto(self, produto):
+    def removerProduto(self, produto):
         self._produtos.remove(produto)
 
-    def limpar_produtos(self):
+    def limparProdutos(self):
         self._produtos.clear()
 
-    def listar_produto(self):
+    def listarProduto(self):
         for produto in self._produtos:
             print(produto.getTitulo(), produto.getPreco())
         return self._produtos
-    
-    def soma_total(self):
+
+    def somaTotal(self):
         total = 0
         for produto in self._produtos:
             total += produto.getPreco()
         return total
 
     def finalizarCompra(self, cartao_credito, cliente):
-        pedido = Pedido(cliente, self.getProduto(), self.soma_total())
-        if pedido.faturarPedido(cartao_credito):
+        pedido = Pedido(cliente, self.getProduto(), self.somaTotal())
+        estoque = self.getProduto()[0].validarEstoque()
+        if pedido.faturarPedido(cartao_credito) and estoque:
             print("Pagamento Aprovado")
             return True
-        else:	
-	        return False
+        else:
+            print("Pagamento Reprovado")
+            return False
